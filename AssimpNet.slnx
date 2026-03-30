@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="AssimpNet.Sample/AssimpNet.Sample.csproj" />
+  <Project Path="AssimpNet.Test/AssimpNet.Test.csproj" />
+  <Project Path="AssimpNet/AssimpNet.csproj" />
+</Solution>
