@@ -1,16 +1,16 @@
-﻿/*
+/*
 * Copyright (c) 2012-2020 AssimpNet - Nicholas Woodfield
-* 
+*
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
 * in the Software without restriction, including without limitation the rights
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -102,12 +102,12 @@ namespace Assimp.Unmanaged
         /// aiCamera**, cameras in the scene.
         /// </summary>
         public IntPtr Cameras;
-        
+
         /// <summary>
         /// aiMetadata*, The global metadata assigned to the scene itself.
-        /// 
-        /// This data contains global metadata which belongs to the scene like 
-        /// unit-conversions, versions, vendors or other model-specific data. This 
+        ///
+        /// This data contains global metadata which belongs to the scene like
+        /// unit-conversions, versions, vendors or other model-specific data. This
         /// can be used to store format-specific metadata as well.
         /// </summary>
         public IntPtr Metadata;
@@ -276,7 +276,7 @@ namespace Assimp.Unmanaged
         /// Max_Value is defined as <see cref="AiDefines.AI_MAX_NUMBER_OF_TEXTURECOORDS"/>.
         /// </summary>
         public AiMeshUVComponentArray NumUVComponents;
- 
+
         /// <summary>
         /// aiFace*, array of faces.
         /// </summary>
@@ -357,7 +357,7 @@ namespace Assimp.Unmanaged
         /// aiTexel*, array of texel data.
         /// </summary>
         public IntPtr Data;
-        
+
         /// <summary>
         /// Texture original filename.
         /// </summary>
@@ -686,7 +686,7 @@ namespace Assimp.Unmanaged
         public uint NumMeshChannels;
 
         /// <summary>
-        /// aiMeshAnim**, mesh animation channels. Each channel affects a single mesh. 
+        /// aiMeshAnim**, mesh animation channels. Each channel affects a single mesh.
         /// </summary>
         public IntPtr MeshChannels;
 
@@ -697,7 +697,7 @@ namespace Assimp.Unmanaged
         public uint NumMeshMorphChannels;
 
         /// <summary>
-        /// aiMeshMorphAnim**, mesh morph animation channels. Each channel affects a single mesh. 
+        /// aiMeshMorphAnim**, mesh morph animation channels. Each channel affects a single mesh.
         /// </summary>
         public IntPtr MeshMorphChannels;
     }
@@ -1007,10 +1007,10 @@ namespace Assimp.Unmanaged
     public struct AiAnimMesh
     {
         /// <summary>
-        /// Anim Mesh name 
+        /// Anim Mesh name
         /// </summary>
         public AiString Name;
-        
+
         /// <summary>
         /// aiVector3*, replacement position array.
         /// </summary>
@@ -1232,7 +1232,7 @@ namespace Assimp.Unmanaged
     /// <param name="msg">Log message</param>
     /// <param name="userData">char* pointer to user data that is passed to the callback</param>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void AiLogStreamCallback([In, MarshalAs(UnmanagedType.LPStr)] string msg, IntPtr userData);
+    public delegate void AiLogStreamCallback(/*[In, MarshalAs(UnmanagedType.LPStr)] string */IntPtr msg, IntPtr userData);
 
     /// <summary>
     /// Callback delegate for a custom file system, to write to a file.
@@ -1289,7 +1289,7 @@ namespace Assimp.Unmanaged
     /// <param name="mode">Read-write permissions to request</param>
     /// <returns>Pointer to an AiFile instance.</returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate IntPtr AiFileOpenProc(IntPtr fileIO, [In, MarshalAs(UnmanagedType.LPStr)] string pathToFile, [In, MarshalAs(UnmanagedType.LPStr)] string mode);
+    public delegate IntPtr AiFileOpenProc(IntPtr fileIO, /*[In, MarshalAs(UnmanagedType.LPStr)] string */IntPtr  pathToFile,/*[In, MarshalAs(UnmanagedType.LPStr)] string */IntPtr  mode);
 
     /// <summary>
     /// Callback delegate for a custom file system, to close a given file and free its memory.

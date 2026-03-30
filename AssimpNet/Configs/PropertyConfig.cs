@@ -1,16 +1,16 @@
 ﻿/*
 * Copyright (c) 2012-2020 AssimpNet - Nicholas Woodfield
-* 
+*
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
 * in the Software without restriction, including without limitation the rights
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -128,7 +128,7 @@ namespace Assimp.Configs
         {
             if(propStore != IntPtr.Zero)
             {
-                AssimpLibrary.Instance.SetImportPropertyInteger(propStore, Name, m_value);
+                AssimpLibrary.SetImportPropertyInteger(propStore, Name, m_value);
             }
         }
     }
@@ -192,7 +192,7 @@ namespace Assimp.Configs
         {
             if(propStore != IntPtr.Zero)
             {
-                AssimpLibrary.Instance.SetImportPropertyFloat(propStore, Name, m_value);
+                AssimpLibrary.SetImportPropertyFloat(propStore, Name, m_value);
             }
         }
     }
@@ -256,7 +256,7 @@ namespace Assimp.Configs
         {
             if(propStore != IntPtr.Zero)
             {
-                AssimpLibrary.Instance.SetImportPropertyMatrix(propStore, Name, m_value);
+                AssimpLibrary.SetImportPropertyMatrix(propStore, Name, m_value);
             }
         }
     }
@@ -321,7 +321,7 @@ namespace Assimp.Configs
             if(propStore != IntPtr.Zero)
             {
                 int aiBool = (m_value) ? 1 : 0;
-                AssimpLibrary.Instance.SetImportPropertyInteger(propStore, Name, aiBool);
+                AssimpLibrary.SetImportPropertyInteger(propStore, Name, aiBool);
             }
         }
     }
@@ -385,7 +385,7 @@ namespace Assimp.Configs
         {
             if(propStore != IntPtr.Zero)
             {
-                AssimpLibrary.Instance.SetImportPropertyString(propStore, Name, m_value);
+                AssimpLibrary.SetImportPropertyString(propStore, Name, m_value);
             }
         }
 
@@ -586,7 +586,7 @@ namespace Assimp.Configs
         public static string KeepSceneHierarchyConfigName => AiConfigs.AI_CONFIG_PP_PTV_KEEP_HIERARCHY;
 
         /// <summary>
-        /// Constructs a new KeepHierarchyConfig. 
+        /// Constructs a new KeepHierarchyConfig.
         /// </summary>
         /// <param name="keepHierarchy">True to keep the hierarchy, false otherwise.</param>
         public KeepSceneHierarchyConfig(bool keepHierarchy)
@@ -678,7 +678,7 @@ namespace Assimp.Configs
     }
 
     /// <summary>
-    /// Configuration for the <see cref="PostProcessSteps.SplitLargeMeshes"/> step 
+    /// Configuration for the <see cref="PostProcessSteps.SplitLargeMeshes"/> step
     /// that specifies the maximum number of triangles a mesh can contain. The
     /// default value is MeshTriangleLimitConfigDefaultValue.
     /// </summary>
@@ -772,7 +772,7 @@ namespace Assimp.Configs
         public static string VertexCacheSizeConfigName => AiConfigs.AI_CONFIG_PP_ICL_PTCACHE_SIZE;
 
         /// <summary>
-        /// Gets the defined default vertex cache size, this corresponds to 
+        /// Gets the defined default vertex cache size, this corresponds to
         /// the <see cref="AiDefines.PP_ICL_PTCACHE_SIZE"/>.
         /// </summary>
         public static int VertexCacheSizeConfigDefaultValue => AiDefines.PP_ICL_PTCACHE_SIZE;
@@ -1016,8 +1016,8 @@ namespace Assimp.Configs
             {
                 //Technically this is TWO configs, a boolean that we want to do it and a config with the actual matrix. Most likely if we're setting the actual matrix, then we really do want
                 //to apply the root transformation, so this config actually represents two configs.
-                AssimpLibrary.Instance.SetImportPropertyInteger(propStore, AiConfigs.AI_CONFIG_PP_PTV_ADD_ROOT_TRANSFORMATION, 1); //TRUE = 1
-                AssimpLibrary.Instance.SetImportPropertyMatrix(propStore, RootTransformationConfigName, Value);
+                AssimpLibrary.SetImportPropertyInteger(propStore, AiConfigs.AI_CONFIG_PP_PTV_ADD_ROOT_TRANSFORMATION, 1); //TRUE = 1
+                AssimpLibrary.SetImportPropertyMatrix(propStore, RootTransformationConfigName, Value);
             }
         }
     }
@@ -1255,7 +1255,7 @@ namespace Assimp.Configs
     /// <summary>
     /// Configures the terragen import plugin to compute UV's for terrains, if
     /// they are not given. Furthermore, a default texture is assigned. The default value is false.
-    /// <para>UV coordinates for terrains are so simple to compute that you'll usually 
+    /// <para>UV coordinates for terrains are so simple to compute that you'll usually
     /// want to compute them on your own, if you need them. This option is intended for model viewers which
     /// want to offer an easy way to apply textures to terrains.</para>
     /// </summary>
@@ -1505,7 +1505,7 @@ namespace Assimp.Configs
 
     /// <summary>
     /// The Ogre importer will detect the texture usage from the filename. Normally a texture is loaded as a color map, if no target is specified
-    /// in the material file. If this is enabled, then Assimp will try to detect the type from the texture filename postfix: 
+    /// in the material file. If this is enabled, then Assimp will try to detect the type from the texture filename postfix:
     /// <list type="bullet">
     /// <item><description>Normal Maps: _n, _nrm, _nrml, _normal, _normals, _normalmap</description></item>
     /// <item><description>Specular Maps: _s, _spec, _specular, _specularmap</description></item>
@@ -1833,7 +1833,7 @@ namespace Assimp.Configs
     }
 
     /// <summary>
-    /// Specifies whether the importer will drop empty animation curves or animation curves which match the bind pose 
+    /// Specifies whether the importer will drop empty animation curves or animation curves which match the bind pose
     /// transformation over their entire defined range. Default value is true.
     /// </summary>
     public sealed class FBXOptimizeEmptyAnimationCurvesConfig : BooleanPropertyConfig

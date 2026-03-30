@@ -1,16 +1,16 @@
 /*
 * Copyright (c) 2012-2020 AssimpNet - Nicholas Woodfield
-* 
+*
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
 * in the Software without restriction, including without limitation the rights
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -165,7 +165,7 @@ namespace Assimp
         }
 
         /// <summary>
-        /// Imports a model from the stream. The importer sets configurations and loads the model into managed memory, releasing the unmanaged memory 
+        /// Imports a model from the stream. The importer sets configurations and loads the model into managed memory, releasing the unmanaged memory
         /// used by Assimp. It is up to the caller to dispose of the stream. If the format is distributed across multiple files/streams, set a custom <see cref="IOSystem"/>
         /// and use the "ImportFile" family of functions.
         /// </summary>
@@ -188,10 +188,10 @@ namespace Assimp
 
             try
             {
-                ptr = AssimpLibrary.Instance.ImportFileFromStream(stream, PostProcessSteps.None, formatHint, m_propStore);
+                ptr = AssimpLibrary.ImportFileFromStream(stream, PostProcessSteps.None, formatHint, m_propStore);
 
                 if(ptr == IntPtr.Zero)
-                    throw new AssimpException("Error importing file: " + AssimpLibrary.Instance.GetErrorString());
+                    throw new AssimpException("Error importing file: " + AssimpLibrary.GetErrorString());
 
                 TransformScene(ptr);
 
@@ -205,7 +205,7 @@ namespace Assimp
 
                 if(ptr != IntPtr.Zero)
                 {
-                    AssimpLibrary.Instance.ReleaseImport(ptr);
+                    AssimpLibrary.ReleaseImport(ptr);
                 }
             }
         }
@@ -259,10 +259,10 @@ namespace Assimp
 
             try
             {
-                ptr = AssimpLibrary.Instance.ImportFile(file, PostProcessSteps.None, fileIO, m_propStore);
+                ptr = AssimpLibrary.ImportFile(file, PostProcessSteps.None, fileIO, m_propStore);
 
                 if(ptr == IntPtr.Zero)
-                    throw new AssimpException("Error importing file: " + AssimpLibrary.Instance.GetErrorString());
+                    throw new AssimpException("Error importing file: " + AssimpLibrary.GetErrorString());
 
                 TransformScene(ptr);
 
@@ -276,7 +276,7 @@ namespace Assimp
 
                 if(ptr != IntPtr.Zero)
                 {
-                    AssimpLibrary.Instance.ReleaseImport(ptr);
+                    AssimpLibrary.ReleaseImport(ptr);
                 }
             }
         }
@@ -330,7 +330,7 @@ namespace Assimp
             {
                 scenePtr = Scene.ToUnmanagedScene(scene);
 
-                ReturnCode status = AssimpLibrary.Instance.ExportScene(scenePtr, exportFormatId, fileName, fileIO, preProcessing);
+                ReturnCode status = AssimpLibrary.ExportScene(scenePtr, exportFormatId, fileName, fileIO, preProcessing);
 
                 return status == ReturnCode.Success;
             }
@@ -384,7 +384,7 @@ namespace Assimp
             {
                 scenePtr = Scene.ToUnmanagedScene(scene);
 
-                return AssimpLibrary.Instance.ExportSceneToBlob(scenePtr, exportFormatId, preProcessing);
+                return AssimpLibrary.ExportSceneToBlob(scenePtr, exportFormatId, preProcessing);
             }
             finally
             {
@@ -468,16 +468,16 @@ namespace Assimp
 
             try
             {
-                ptr = AssimpLibrary.Instance.ImportFile(inputFilename, PostProcessSteps.None, fileIO, m_propStore);
+                ptr = AssimpLibrary.ImportFile(inputFilename, PostProcessSteps.None, fileIO, m_propStore);
 
                 if(ptr == IntPtr.Zero)
-                    throw new AssimpException("Error importing file: " + AssimpLibrary.Instance.GetErrorString());
+                    throw new AssimpException("Error importing file: " + AssimpLibrary.GetErrorString());
 
                 TransformScene(ptr);
 
                 ptr = ApplyPostProcessing(ptr, importProcessSteps);
 
-                ReturnCode status = AssimpLibrary.Instance.ExportScene(ptr, exportFormatId, outputFilename, fileIO, exportProcessSteps);
+                ReturnCode status = AssimpLibrary.ExportScene(ptr, exportFormatId, outputFilename, fileIO, exportProcessSteps);
 
                 return status == ReturnCode.Success;
             }
@@ -486,7 +486,7 @@ namespace Assimp
                 CleanupImport();
 
                 if(ptr != IntPtr.Zero)
-                    AssimpLibrary.Instance.ReleaseImport(ptr);
+                    AssimpLibrary.ReleaseImport(ptr);
             }
         }
 
@@ -558,23 +558,23 @@ namespace Assimp
 
             try
             {
-                ptr = AssimpLibrary.Instance.ImportFile(inputFilename, PostProcessSteps.None, fileIO, m_propStore);
+                ptr = AssimpLibrary.ImportFile(inputFilename, PostProcessSteps.None, fileIO, m_propStore);
 
                 if(ptr == IntPtr.Zero)
-                    throw new AssimpException("Error importing file: " + AssimpLibrary.Instance.GetErrorString());
+                    throw new AssimpException("Error importing file: " + AssimpLibrary.GetErrorString());
 
                 TransformScene(ptr);
 
                 ptr = ApplyPostProcessing(ptr, importProcessSteps);
 
-                return AssimpLibrary.Instance.ExportSceneToBlob(ptr, exportFormatId, exportProcessSteps);
+                return AssimpLibrary.ExportSceneToBlob(ptr, exportFormatId, exportProcessSteps);
             }
             finally
             {
                 CleanupImport();
 
                 if(ptr != IntPtr.Zero)
-                    AssimpLibrary.Instance.ReleaseImport(ptr);
+                    AssimpLibrary.ReleaseImport(ptr);
             }
         }
 
@@ -653,16 +653,16 @@ namespace Assimp
 
             try
             {
-                ptr = AssimpLibrary.Instance.ImportFileFromStream(inputStream, importProcessSteps, importFormatHint, m_propStore);
+                ptr = AssimpLibrary.ImportFileFromStream(inputStream, importProcessSteps, importFormatHint, m_propStore);
 
                 if(ptr == IntPtr.Zero)
-                    throw new AssimpException("Error importing file: " + AssimpLibrary.Instance.GetErrorString());
+                    throw new AssimpException("Error importing file: " + AssimpLibrary.GetErrorString());
 
                 TransformScene(ptr);
 
                 ptr = ApplyPostProcessing(ptr, importProcessSteps);
 
-                ReturnCode status = AssimpLibrary.Instance.ExportScene(ptr, exportFormatId, outputFilename, exportProcessSteps);
+                ReturnCode status = AssimpLibrary.ExportScene(ptr, exportFormatId, outputFilename, exportProcessSteps);
 
                 return status == ReturnCode.Success;
             }
@@ -671,7 +671,7 @@ namespace Assimp
                 CleanupImport();
 
                 if(ptr != IntPtr.Zero)
-                    AssimpLibrary.Instance.ReleaseImport(ptr);
+                    AssimpLibrary.ReleaseImport(ptr);
             }
         }
 
@@ -743,23 +743,23 @@ namespace Assimp
 
             try
             {
-                ptr = AssimpLibrary.Instance.ImportFileFromStream(inputStream, importProcessSteps, importFormatHint, m_propStore);
+                ptr = AssimpLibrary.ImportFileFromStream(inputStream, importProcessSteps, importFormatHint, m_propStore);
 
                 if(ptr == IntPtr.Zero)
-                    throw new AssimpException("Error importing file: " + AssimpLibrary.Instance.GetErrorString());
+                    throw new AssimpException("Error importing file: " + AssimpLibrary.GetErrorString());
 
                 TransformScene(ptr);
 
                 ptr = ApplyPostProcessing(ptr, importProcessSteps);
 
-                return AssimpLibrary.Instance.ExportSceneToBlob(ptr, exportFormatId, exportProcessSteps);
+                return AssimpLibrary.ExportSceneToBlob(ptr, exportFormatId, exportProcessSteps);
             }
             finally
             {
                 CleanupImport();
 
                 if(ptr != IntPtr.Zero)
-                    AssimpLibrary.Instance.ReleaseImport(ptr);
+                    AssimpLibrary.ReleaseImport(ptr);
             }
         }
 
@@ -862,7 +862,7 @@ namespace Assimp
         /// <returns>True if the format is supported, false otherwise</returns>
         public bool IsImportFormatSupported(string format)
         {
-            return AssimpLibrary.Instance.IsExtensionSupported(format);
+            return AssimpLibrary.IsExtensionSupported(format);
         }
 
         /// <summary>
@@ -983,17 +983,17 @@ namespace Assimp
         private void QueryExportFormatsIfNecessary()
         {
             if(m_exportFormats == null)
-                m_exportFormats = AssimpLibrary.Instance.GetExportFormatDescriptions();
+                m_exportFormats = AssimpLibrary.GetExportFormatDescriptions();
         }
 
         private void QueryImportFormatsIfNecessary()
         {
-            m_importFormats ??= AssimpLibrary.Instance.GetExtensionList();
+            m_importFormats ??= AssimpLibrary.GetExtensionList();
         }
 
         private void QueryImporterDescriptionsIfNecessary()
         {
-            m_importerDescrs ??= AssimpLibrary.Instance.GetImporterDescriptions();
+            m_importerDescrs ??= AssimpLibrary.GetImporterDescriptions();
         }
 
         //Build import transformation matrix
@@ -1049,11 +1049,11 @@ namespace Assimp
             if(postProcessFlags == PostProcessSteps.None || scene == IntPtr.Zero)
                 return scene;
 
-            scene = AssimpLibrary.Instance.ApplyPostProcessing(scene, postProcessFlags);
+            scene = AssimpLibrary.ApplyPostProcessing(scene, postProcessFlags);
 
             if(scene == IntPtr.Zero)
             {
-                string error = AssimpLibrary.Instance.GetErrorString();
+                string error = AssimpLibrary.GetErrorString();
                 throw new AssimpException(error.Length == 0
                     //Postprocessing steps don't usually set the error string when failing
                     ? "Error applying post processing, see log for more info."
@@ -1066,7 +1066,7 @@ namespace Assimp
         //Creates all property stores and sets their values
         private void CreateConfigs()
         {
-            m_propStore = AssimpLibrary.Instance.CreatePropertyStore();
+            m_propStore = AssimpLibrary.CreatePropertyStore();
 
             foreach(KeyValuePair<string, PropertyConfig> config in m_configs)
             {
@@ -1078,7 +1078,7 @@ namespace Assimp
         private void ReleaseConfigs()
         {
             if(m_propStore != IntPtr.Zero)
-                AssimpLibrary.Instance.ReleasePropertyStore(m_propStore);
+                AssimpLibrary.ReleasePropertyStore(m_propStore);
         }
 
         //Does all the necessary prep work before we import
@@ -1102,7 +1102,7 @@ namespace Assimp
         //Tests if a export format ID matches any in the supported list, and if not logs a warning
         private bool TestIfExportIdIsValid(string exportFormatId)
         {
-            m_exportFormats ??= AssimpLibrary.Instance.GetExportFormatDescriptions();
+            m_exportFormats ??= AssimpLibrary.GetExportFormatDescriptions();
 
             foreach(ExportFormatDescription descr in m_exportFormats)
             {
