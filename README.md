@@ -1,3 +1,61 @@
+## このフォークについて
+
+このフォークは 私が(後 AGPL ライセンスにて公開する予定の)現在非公開のプロジェクトのために、Assimp の dotnet binding が必要になったため、いま一番メンテナンスが行われていそうな [AssinpNetter](https://github.com/Saalvage/AssimpNetter) に改造を施したものです。
+
+### 主な改造の内容
+
+#### LibraryImport を用いたバインディング
+
+LibraryImport　を用いて DLL を取り扱うため、dotnet 7.0 以前では技術的に動作しなくなります。(また csproje 上は dotnet 10.0 がないと動作しません。)
+
+それに伴い、FunctionPinter と それぞれの OS 用に作られた、動的な DLL ロード仕組みをすべて削除しました。
+
+LibraryImport は 内部的に DLLImport を生成します。私はこの DLLImport を用いたバインディングである必要があるため、このフォークを作成しました。
+
+#### Nuget 周辺の情報を適当に削除
+
+いや Nuget に公開するの面倒だし、 Nuget に公開したい人がいたら、適当にもとのやつと切り貼りしてね！私はめんどい
+
+#### Unity へのサポートを削除
+
+LibraryImport が Unity で動くわけがない。 Unity で動かすことを目的としてないのでこのフォークでは完全に切り捨てました。
+
+#### Docs を削除
+
+なにこれ ... ？
+よくわからないけど、 .chm ってなんだろうね ?
+まぁこのレポジトリになくても ... まぁいいでしょ。
+
+#### slnx にマイグレート
+
+sln 形式って純粋に見づらいじゃん。
+
+#### libs/VersionList.txt のバージョンを正しく表記
+
+でも正直この libs は消したいよね、 DLL は git にあまり入れるべきではないとも思う ... けれど他に良い手段はあるのか ... ?
+
+C や C++ 系のコンパイルを通すのはほとんどの場合面倒だからなぁ ... ()
+
+いずれ CI で広めの範囲の assimp の DLL を作れるとよいのだけど、 assimp 公式のレポジトリの配布の範囲は狭いし ... (linux arm が無い等)
+
+#### DLL を runtime に持ち込む部分を改修
+
+`runtimes/linux-x64/native/libassimp.so` などに置かれるように csproj に書いてみたけど、これが正しいのかはしらない ... でもこういった path に置いておくと、 DLLImport のデフォルトリゾルバーは適切に扱ってくれる。
+
+DLL にインポートはこうあってほしかったからこのフォークがある。
+
+## Reina_Sakiria 個人的メモ
+
+AssimpNet.Sample のコードはあまりに古い[ShaderGen](https://github.com/mellinoe/ShaderGen)　というプロジェクトに依存しており、私の環境では dotnet 2.0 が存在しないためビルドが通りません。
+
+ShaderGen のジェネレーターの .dll のそばにある runtime config に対して、rollForward を書き足すことで無理やり新しい dotnet runtime で動かすことで一応動くようです。
+```json
+    {
+      "rollForward": "latestMajor"
+    }
+```
+## AssimpNetter
+
 ![alt text](https://raw.githubusercontent.com/Saalvage/AssimpNetter/master/logo.png "AssimpNet Logo")
 
 **The latest release can be downloaded via [NuGet](https://www.nuget.org/packages/AssimpNetter/).**
