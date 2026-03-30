@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Assimp.Test</RootNamespace>
     <LangVersion>latest</LangVersion>
     <ForceCopyNativeAssimp>true</ForceCopyNativeAssimp>
@@ -50,5 +50,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  
+
+  <ItemGroup>
+    <!-- NUnit の test の時に、うまく DLL 解決してくれないから、とても醜いけれど Linux-x64 のときだけ WorkAround ... by Reina_Sakiria -->
+    <Content Include="../libs/Assimp/linux-x64/libassimp.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
