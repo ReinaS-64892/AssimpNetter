@@ -753,13 +753,13 @@ namespace Assimp.Unmanaged
         private static partial IntPtr aiImportFileEx(string file, uint flags, IntPtr fileIO);
 
         [LibraryImport(DLL_NAME, StringMarshalling = StringMarshalling.Utf8)]
-        private static partial IntPtr aiImportFileFromMemory(byte[] buffer, uint bufferLength, uint flags, string formatHint);
+        private static partial IntPtr aiImportFileFromMemory([In] byte[] buffer, uint bufferLength, uint flags, string formatHint);
 
         [LibraryImport(DLL_NAME, StringMarshalling = StringMarshalling.Utf8)]
         private static partial IntPtr aiImportFileExWithProperties(string file, uint flag, IntPtr fileIO, IntPtr propStore);
 
         [LibraryImport(DLL_NAME, StringMarshalling = StringMarshalling.Utf8)]
-        private static partial IntPtr aiImportFileFromMemoryWithProperties(byte[] buffer, uint bufferLength, uint flags, string formatHint, IntPtr propStore);
+        private static partial IntPtr aiImportFileFromMemoryWithProperties([In] byte[] buffer, uint bufferLength, uint flags, string formatHint, IntPtr propStore);
 
         [LibraryImport(DLL_NAME, StringMarshalling = StringMarshalling.Utf8)]
         private static partial void aiReleaseImport(IntPtr scene);
